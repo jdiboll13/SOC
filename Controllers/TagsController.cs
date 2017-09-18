@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,14 @@ namespace SOC.Controllers
         }
 
         // GET: Tags
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.TagsModel.ToListAsync());
         }
 
         // GET: Tags/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace SOC.Controllers
         }
 
         // GET: Tags/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +58,7 @@ namespace SOC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("ID,TagName")] TagsModel tagsModel)
         {
             if (ModelState.IsValid)
@@ -66,6 +71,7 @@ namespace SOC.Controllers
         }
 
         // GET: Tags/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +92,7 @@ namespace SOC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,TagName")] TagsModel tagsModel)
         {
             if (id != tagsModel.ID)
@@ -117,6 +124,7 @@ namespace SOC.Controllers
         }
 
         // GET: Tags/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +145,7 @@ namespace SOC.Controllers
         // POST: Tags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var tagsModel = await _context.TagsModel.SingleOrDefaultAsync(m => m.ID == id);
