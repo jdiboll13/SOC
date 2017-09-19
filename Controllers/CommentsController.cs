@@ -65,7 +65,7 @@ namespace SOC.Controllers
             {
                 _context.Add(commentsModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(commentsModel);
         }
@@ -118,7 +118,7 @@ namespace SOC.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(commentsModel);
         }
@@ -151,7 +151,7 @@ namespace SOC.Controllers
             var commentsModel = await _context.CommentsModel.SingleOrDefaultAsync(m => m.ID == id);
             _context.CommentsModel.Remove(commentsModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool CommentsModelExists(string id)

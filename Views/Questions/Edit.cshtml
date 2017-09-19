@@ -4,9 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Edit Your Question</h2>
 
-<h4>QuestionsModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,21 +23,6 @@
                 <span asp-validation-for="Body" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VoteCount" class="control-label"></label>
-                <input asp-for="VoteCount" class="form-control" />
-                <span asp-validation-for="VoteCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DatePosted" class="control-label"></label>
-                <input asp-for="DatePosted" class="form-control" />
-                <span asp-validation-for="DatePosted" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
@@ -46,6 +30,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
 </div>
 

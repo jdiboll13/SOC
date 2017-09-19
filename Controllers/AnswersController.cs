@@ -65,7 +65,7 @@ namespace SOC.Controllers
             {
                 _context.Add(answersModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(answersModel);
         }
@@ -118,7 +118,7 @@ namespace SOC.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(answersModel);
         }
@@ -151,7 +151,7 @@ namespace SOC.Controllers
             var answersModel = await _context.AnswersModel.SingleOrDefaultAsync(m => m.ID == id);
             _context.AnswersModel.Remove(answersModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool AnswersModelExists(string id)
