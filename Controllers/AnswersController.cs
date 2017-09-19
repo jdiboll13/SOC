@@ -52,8 +52,9 @@ namespace SOC.Controllers
 
         // GET: Answers/Create
         [Authorize]
-        public IActionResult Create(string QuestionID)
+        public IActionResult Create(string id)
         {
+            ViewData["QuestionsModelID"] = id;
             return View();
         }
 
@@ -63,17 +64,17 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Body,VoteCount,DatePosted")] AnswersModel answersModel)
+        public async Task<IActionResult> Create([FromForm] string QuestionsModelID, [FromForm] string body)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                answersModel.ApplicationUserId = user.Id;
-                _context.Add(answersModel);
+                var newAnswer = new AnswersModel {QuestionsModelID = QuestionsModelID, Body = body, ApplicationUserId = user.Id};
+                _context.Add(newAnswer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
-            return View(answersModel);
+            return View();
         }
 
         // GET: Answers/Edit/5

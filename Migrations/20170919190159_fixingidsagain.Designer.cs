@@ -11,9 +11,10 @@ using System;
 namespace SOC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170919190159_fixingidsagain")]
+    partial class fixingidsagain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,6 +216,8 @@ namespace SOC.Migrations
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AnswerID");
+
                     b.Property<string>("AnswersModelID");
 
                     b.Property<string>("ApplicationUserId");
@@ -222,6 +225,8 @@ namespace SOC.Migrations
                     b.Property<string>("Body");
 
                     b.Property<DateTime>("DatePosted");
+
+                    b.Property<string>("QuestionID");
 
                     b.Property<string>("QuestionsModelID");
 

@@ -12,9 +12,9 @@ namespace SOC.Models
         public DateTime DatePosted { get;set; } = DateTime.Now;
         public string ApplicationUserId { get;set; }
         public ApplicationUser ApplicationUser { get;set; }
-        public string QuestionID { get;set; }
+        public string QuestionsModelID { get;set; }
         public QuestionsModel QuestionsModel { get;set; }
-        public string AnswerID { get;set; }
+        public string AnswersModelID { get;set; }
         public AnswersModel AnswersModel { get;set; }
     }
 }
