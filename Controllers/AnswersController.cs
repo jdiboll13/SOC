@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,13 @@ namespace SOC.Controllers
     public class AnswersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AnswersController(ApplicationDbContext context)
+
+        public AnswersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Answers
@@ -48,7 +52,7 @@ namespace SOC.Controllers
 
         // GET: Answers/Create
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(string QuestionID)
         {
             return View();
         }
@@ -59,10 +63,12 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Body,VoteCount,DatePosted,UserID,QuestionID")] AnswersModel answersModel)
+        public async Task<IActionResult> Create([Bind("ID,Body,VoteCount,DatePosted")] AnswersModel answersModel)
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                answersModel.ApplicationUserId = user.Id;
                 _context.Add(answersModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");

@@ -9,30 +9,15 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
         <dd>
             @Html.DisplayFor(model => model.Body)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DatePosted)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DatePosted)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VoteCount)
-        </dt>
-        <dd>
+        <span>
+            <strong>@Html.DisplayNameFor(model => model.VoteCount)</strong>
             @Html.DisplayFor(model => model.VoteCount)
-        </dd>
+            <strong>@Html.DisplayNameFor(model => model.DatePosted)</strong>
+            @Html.DisplayFor(model => model.DatePosted)
+        </span>
     </dl>
 </div>
 <div>
