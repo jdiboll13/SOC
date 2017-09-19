@@ -8,16 +8,16 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SOC.Data;
 using System;
 
-namespace SOC.Data.Migrations
+namespace SOC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170918171656_AnswersModel_mig")]
-    partial class AnswersModel_mig
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -129,28 +129,24 @@ namespace SOC.Data.Migrations
 
             modelBuilder.Entity("SOC.Models.AnswersModel", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Body");
 
                     b.Property<DateTime>("DatePosted");
 
-                    b.Property<int>("QuestionID");
+                    b.Property<string>("QuestionID");
 
-                    b.Property<int?>("QuestionsModelID");
+                    b.Property<string>("QuestionsModelID");
 
-                    b.Property<int>("UserID");
-
-                    b.Property<int?>("UsersModelID");
+                    b.Property<string>("UserID");
 
                     b.Property<int>("VoteCount");
 
                     b.HasKey("ID");
 
                     b.HasIndex("QuestionsModelID");
-
-                    b.HasIndex("UsersModelID");
 
                     b.ToTable("AnswersModel");
                 });
@@ -162,6 +158,8 @@ namespace SOC.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<bool>("BitForMod");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -169,6 +167,12 @@ namespace SOC.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("ID");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -195,6 +199,9 @@ namespace SOC.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ID")
+                        .IsUnique();
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -207,48 +214,48 @@ namespace SOC.Data.Migrations
 
             modelBuilder.Entity("SOC.Models.CommentsModel", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AnswerID");
+                    b.Property<string>("AnswerID");
 
-                    b.Property<int?>("AnswersModelID");
+                    b.Property<string>("AnswersModelID");
+
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Body");
 
                     b.Property<DateTime>("DatePosted");
 
-                    b.Property<int>("QuestionID");
+                    b.Property<string>("QuestionID");
 
-                    b.Property<int?>("QuestionsModelID");
+                    b.Property<string>("QuestionsModelID");
 
-                    b.Property<int>("UserID");
-
-                    b.Property<int?>("UsersModelID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
                     b.HasIndex("AnswersModelID");
 
-                    b.HasIndex("QuestionsModelID");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("UsersModelID");
+                    b.HasIndex("QuestionsModelID");
 
                     b.ToTable("CommentsModel");
                 });
 
             modelBuilder.Entity("SOC.Models.QTiesModel", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("QuestionID");
+                    b.Property<string>("QuestionID");
 
-                    b.Property<int?>("QuestionsModelID");
+                    b.Property<string>("QuestionsModelID");
 
-                    b.Property<int>("TagID");
+                    b.Property<string>("TagID");
 
-                    b.Property<int?>("TagsModelID");
+                    b.Property<string>("TagsModelID");
 
                     b.HasKey("ID");
 
@@ -261,31 +268,37 @@ namespace SOC.Data.Migrations
 
             modelBuilder.Entity("SOC.Models.QuestionsModel", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Body");
 
                     b.Property<DateTime>("DatePosted");
 
+                    b.Property<string>("TagName");
+
+                    b.Property<string>("TagsModelID");
+
                     b.Property<string>("Title");
 
-                    b.Property<int>("UserId");
-
-                    b.Property<int?>("UsersModelID");
+                    b.Property<string>("UserId");
 
                     b.Property<int>("VoteCount");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UsersModelID");
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("TagsModelID");
 
                     b.ToTable("QuestionsModel");
                 });
 
             modelBuilder.Entity("SOC.Models.TagsModel", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("TagName");
@@ -293,26 +306,6 @@ namespace SOC.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("TagsModel");
-                });
-
-            modelBuilder.Entity("SOC.Models.UsersModel", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("BitForMod");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("UsersModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -365,10 +358,13 @@ namespace SOC.Data.Migrations
                     b.HasOne("SOC.Models.QuestionsModel", "QuestionsModel")
                         .WithMany()
                         .HasForeignKey("QuestionsModelID");
+                });
 
-                    b.HasOne("SOC.Models.UsersModel", "UsersModel")
-                        .WithMany()
-                        .HasForeignKey("UsersModelID");
+            modelBuilder.Entity("SOC.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("SOC.Models.AnswersModel")
+                        .WithOne("ApplicationUser")
+                        .HasForeignKey("SOC.Models.ApplicationUser", "ID");
                 });
 
             modelBuilder.Entity("SOC.Models.CommentsModel", b =>
@@ -377,13 +373,13 @@ namespace SOC.Data.Migrations
                         .WithMany()
                         .HasForeignKey("AnswersModelID");
 
+                    b.HasOne("SOC.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("SOC.Models.QuestionsModel", "QuestionsModel")
                         .WithMany()
                         .HasForeignKey("QuestionsModelID");
-
-                    b.HasOne("SOC.Models.UsersModel", "UsersModel")
-                        .WithMany()
-                        .HasForeignKey("UsersModelID");
                 });
 
             modelBuilder.Entity("SOC.Models.QTiesModel", b =>
@@ -399,9 +395,13 @@ namespace SOC.Data.Migrations
 
             modelBuilder.Entity("SOC.Models.QuestionsModel", b =>
                 {
-                    b.HasOne("SOC.Models.UsersModel", "UsersModel")
+                    b.HasOne("SOC.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("UsersModelID");
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("SOC.Models.TagsModel", "TagsModel")
+                        .WithMany()
+                        .HasForeignKey("TagsModelID");
                 });
 #pragma warning restore 612, 618
         }

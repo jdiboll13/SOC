@@ -29,7 +29,7 @@ namespace SOC.Controllers
 
         // GET: Tags/Details/5
         [Authorize]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -72,7 +72,7 @@ namespace SOC.Controllers
 
         // GET: Tags/Edit/5
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -93,7 +93,7 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TagName")] TagsModel tagsModel)
+        public async Task<IActionResult> Edit(string id, [Bind("ID,TagName")] TagsModel tagsModel)
         {
             if (id != tagsModel.ID)
             {
@@ -125,7 +125,7 @@ namespace SOC.Controllers
 
         // GET: Tags/Delete/5
         [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -146,7 +146,7 @@ namespace SOC.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var tagsModel = await _context.TagsModel.SingleOrDefaultAsync(m => m.ID == id);
             _context.TagsModel.Remove(tagsModel);
@@ -154,7 +154,7 @@ namespace SOC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TagsModelExists(int id)
+        private bool TagsModelExists(string id)
         {
             return _context.TagsModel.Any(e => e.ID == id);
         }

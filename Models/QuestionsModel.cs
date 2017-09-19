@@ -7,12 +7,14 @@ namespace SOC.Models
         {
         }
 
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
         public int VoteCount { get; set; }
-        public DateTime DatePosted { get; set; }
-        public int UserId { get; set; }
-        public UsersModel UsersModel { get; set; }
+        public DateTime DatePosted { get; set; } = DateTime.Now;
+        public string UserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+        public string TagName { get; set; }
+        public TagsModel TagsModel { get; set; }
     }
 }

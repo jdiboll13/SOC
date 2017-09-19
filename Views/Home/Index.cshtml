@@ -1,5 +1,49 @@
-﻿@{
+﻿@model IEnumerable<SOC.Models.QuestionsModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-
+<h4>Questions</h4>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoteCount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Body)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DatePosted)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VoteCount)
+            </td>
+            <td>
+                <a asp-controller="Questions" asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePosted)
+            </td>
+            <td>
+                <a asp-controller="Answers" asp-action="Create">Answer</a> |
+                <a asp-controller="Comments" asp-action="Create">Comment</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Comment</h2>
 
-<h4>CommentsModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,26 +17,6 @@
                 <span asp-validation-for="Body" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DatePosted" class="control-label"></label>
-                <input asp-for="DatePosted" class="form-control" />
-                <span asp-validation-for="DatePosted" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserID" class="control-label"></label>
-                <input asp-for="UserID" class="form-control" />
-                <span asp-validation-for="UserID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="QuestionID" class="control-label"></label>
-                <input asp-for="QuestionID" class="form-control" />
-                <span asp-validation-for="QuestionID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AnswerID" class="control-label"></label>
-                <input asp-for="AnswerID" class="form-control" />
-                <span asp-validation-for="AnswerID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
@@ -45,6 +24,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
 </div>
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,24 +10,22 @@ using SOC.Models;
 
 namespace SOC.Controllers
 {
-    public class CommentsController : Controller
+    public class ApplicationUserController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CommentsController(ApplicationDbContext context)
+        public ApplicationUserController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Comments
-        [AllowAnonymous]
+        // GET: ApplicationUser
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CommentsModel.ToListAsync());
+            return View(await _context.ApplicationUser.ToListAsync());
         }
 
-        // GET: Comments/Details/5
-        [AllowAnonymous]
+        // GET: ApplicationUser/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -36,42 +33,39 @@ namespace SOC.Controllers
                 return NotFound();
             }
 
-            var commentsModel = await _context.CommentsModel
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (commentsModel == null)
+            var applicationUser = await _context.ApplicationUser
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(commentsModel);
+            return View(applicationUser);
         }
 
-        // GET: Comments/Create
-        [Authorize]
+        // GET: ApplicationUser/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Comments/Create
+        // POST: ApplicationUser/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Body,DatePosted,UserID,QuestionID,AnswerID")] CommentsModel commentsModel)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,BitForMod,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(commentsModel);
+                _context.Add(applicationUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(commentsModel);
+            return View(applicationUser);
         }
 
-        // GET: Comments/Edit/5
-        [Authorize]
+        // GET: ApplicationUser/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -79,23 +73,22 @@ namespace SOC.Controllers
                 return NotFound();
             }
 
-            var commentsModel = await _context.CommentsModel.SingleOrDefaultAsync(m => m.ID == id);
-            if (commentsModel == null)
+            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
             {
                 return NotFound();
             }
-            return View(commentsModel);
+            return View(applicationUser);
         }
 
-        // POST: Comments/Edit/5
+        // POST: ApplicationUser/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Edit(string id, [Bind("ID,Body,DatePosted,UserID,QuestionID,AnswerID")] CommentsModel commentsModel)
+        public async Task<IActionResult> Edit(string id, [Bind("ID,FirstName,LastName,BitForMod,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
-            if (id != commentsModel.ID)
+            if (id != applicationUser.Id)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace SOC.Controllers
             {
                 try
                 {
-                    _context.Update(commentsModel);
+                    _context.Update(applicationUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CommentsModelExists(commentsModel.ID))
+                    if (!ApplicationUserExists(applicationUser.Id))
                     {
                         return NotFound();
                     }
@@ -120,11 +113,10 @@ namespace SOC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(commentsModel);
+            return View(applicationUser);
         }
 
-        // GET: Comments/Delete/5
-        [Authorize]
+        // GET: ApplicationUser/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -132,31 +124,30 @@ namespace SOC.Controllers
                 return NotFound();
             }
 
-            var commentsModel = await _context.CommentsModel
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (commentsModel == null)
+            var applicationUser = await _context.ApplicationUser
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(commentsModel);
+            return View(applicationUser);
         }
 
-        // POST: Comments/Delete/5
+        // POST: ApplicationUser/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var commentsModel = await _context.CommentsModel.SingleOrDefaultAsync(m => m.ID == id);
-            _context.CommentsModel.Remove(commentsModel);
+            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            _context.ApplicationUser.Remove(applicationUser);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CommentsModelExists(string id)
+        private bool ApplicationUserExists(string id)
         {
-            return _context.CommentsModel.Any(e => e.ID == id);
+            return _context.ApplicationUser.Any(e => e.Id == id);
         }
     }
 }

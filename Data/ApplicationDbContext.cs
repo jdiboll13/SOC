@@ -33,6 +33,6 @@ namespace SOC.Data
 
         public DbSet<SOC.Models.TagsModel> TagsModel { get; set; }
 
-        public DbSet<SOC.Models.UsersModel> UsersModel { get; set; }
+        public DbSet<SOC.Models.ApplicationUser> ApplicationUser { get; set; }
     }
 }

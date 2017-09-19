@@ -29,7 +29,7 @@ namespace SOC.Controllers
 
         // GET: Questions/Details/5
         [Authorize]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -72,7 +72,7 @@ namespace SOC.Controllers
 
         // GET: Questions/Edit/5
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -93,7 +93,7 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Body,VoteCount,DatePosted,UserId")] QuestionsModel questionsModel)
+        public async Task<IActionResult> Edit(string id, [Bind("ID,Title,Body,VoteCount,DatePosted,UserId")] QuestionsModel questionsModel)
         {
             if (id != questionsModel.ID)
             {
@@ -125,7 +125,7 @@ namespace SOC.Controllers
 
         // GET: Questions/Delete/5
         [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -146,7 +146,7 @@ namespace SOC.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var questionsModel = await _context.QuestionsModel.SingleOrDefaultAsync(m => m.ID == id);
             _context.QuestionsModel.Remove(questionsModel);
@@ -154,7 +154,7 @@ namespace SOC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool QuestionsModelExists(int id)
+        private bool QuestionsModelExists(string id)
         {
             return _context.QuestionsModel.Any(e => e.ID == id);
         }

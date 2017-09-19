@@ -29,7 +29,7 @@ namespace SOC.Controllers
 
         // GET: Answers/Details/5
         [Authorize]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -72,7 +72,7 @@ namespace SOC.Controllers
 
         // GET: Answers/Edit/5
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -93,7 +93,7 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Body,VoteCount,DatePosted,UserID,QuestionID")] AnswersModel answersModel)
+        public async Task<IActionResult> Edit(string id, [Bind("ID,Body,VoteCount,DatePosted,UserID,QuestionID")] AnswersModel answersModel)
         {
             if (id != answersModel.ID)
             {
@@ -125,7 +125,7 @@ namespace SOC.Controllers
 
         // GET: Answers/Delete/5
         [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -146,7 +146,7 @@ namespace SOC.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var answersModel = await _context.AnswersModel.SingleOrDefaultAsync(m => m.ID == id);
             _context.AnswersModel.Remove(answersModel);
@@ -154,7 +154,7 @@ namespace SOC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AnswersModelExists(int id)
+        private bool AnswersModelExists(string id)
         {
             return _context.AnswersModel.Any(e => e.ID == id);
         }

@@ -29,7 +29,7 @@ namespace SOC.Controllers
 
         // GET: QTies/Details/5
         [Authorize]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -72,7 +72,7 @@ namespace SOC.Controllers
 
         // GET: QTies/Edit/5
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -93,7 +93,7 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TagID,QuestionID")] QTiesModel qTiesModel)
+        public async Task<IActionResult> Edit(string id, [Bind("ID,TagID,QuestionID")] QTiesModel qTiesModel)
         {
             if (id != qTiesModel.ID)
             {
@@ -125,7 +125,7 @@ namespace SOC.Controllers
 
         // GET: QTies/Delete/5
         [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -146,7 +146,7 @@ namespace SOC.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var qTiesModel = await _context.QTiesModel.SingleOrDefaultAsync(m => m.ID == id);
             _context.QTiesModel.Remove(qTiesModel);
@@ -154,7 +154,7 @@ namespace SOC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool QTiesModelExists(int id)
+        private bool QTiesModelExists(string id)
         {
             return _context.QTiesModel.Any(e => e.ID == id);
         }

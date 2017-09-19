@@ -6,7 +6,7 @@ namespace SOC.Models
         {
         }
 
-        public int ID { get;set; }
+        public string ID { get;set; }
         public string TagName { get;set; }
     }
 }

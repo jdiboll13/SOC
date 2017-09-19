@@ -6,10 +6,10 @@ namespace SOC.Models
         {
         }
 
-        public int ID { get;set; }
-        public int TagID { get;set; }
+        public string ID { get;set; }
+        public string TagID { get;set; }
         public TagsModel TagsModel { get;set; }
-        public int QuestionID { get;set; }
+        public string QuestionID { get;set; }
         public QuestionsModel QuestionsModel { get;set; }
     }
 }
