@@ -83,12 +83,13 @@ namespace SOC.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
+            Console.WriteLine(id);
             if (id == null)
             {
                 return NotFound();
             }
-
-            var answersModel = await _context.AnswersModel.SingleOrDefaultAsync(m => m.ID == id);
+            var answersModel = await _context.AnswersModel
+            .SingleOrDefaultAsync(m => m.ID == id);
             if (answersModel == null)
             {
                 return NotFound();

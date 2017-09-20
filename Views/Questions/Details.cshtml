@@ -38,7 +38,7 @@
             @foreach(var answer in Model.AnswersModel)
             {
                 <div>
-                    <p>@answer.Body</p> |
+                    <p>@answer.Body</p>
                     <a asp-action="Edit" asp-route-id="@answer.ID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@answer.ID">Details</a> |
                     <a asp-action="Delete" asp-route-id="@answer.ID">Delete</a>
