@@ -63,17 +63,17 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Body,DatePosted")] CommentsModel commentsModel)
+        public async Task<IActionResult> Create([FromForm] string QuestionsModelID, [FromForm] string AnswersModelID, [FromForm] string body)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                commentsModel.ApplicationUserId = user.Id;
-                _context.Add(commentsModel);
+                var newAnswer = new AnswersModel {QuestionsModelID = QuestionsModelID, Body = body, ApplicationUserId = user.Id, ID = AnswersModelID};
+                _context.Add(newAnswer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
-            return View(commentsModel);
+            return View();
         }
 
         // GET: Comments/Edit/5
