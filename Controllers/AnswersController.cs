@@ -41,6 +41,8 @@ namespace SOC.Controllers
             }
 
             var answersModel = await _context.AnswersModel
+                .Include(a => a.ApplicationUser)
+                .Include(a => a.QuestionsModel)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (answersModel == null)
             {
@@ -54,7 +56,7 @@ namespace SOC.Controllers
         [Authorize]
         public IActionResult Create(string id)
         {
-            ViewData["QuestionsModelID"] = id;
+            ViewData["QuestionsModelId"] = id;
             return View();
         }
 
@@ -64,15 +66,15 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([FromForm] string QuestionsModelID, [FromForm] string body)
+        public async Task<IActionResult> Create([FromForm] string questionsModelID, [FromForm] string body)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                var newAnswer = new AnswersModel {QuestionsModelID = QuestionsModelID, Body = body, ApplicationUserId = user.Id};
+                var newAnswer = new AnswersModel {QuestionsModelID = questionsModelID, Body = body, ApplicationUserId = user.Id};
                 _context.Add(newAnswer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Details), "Questions", new {id = newAnswer.QuestionsModelID});
             }
             return View();
         }

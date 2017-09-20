@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 namespace SOC.Models
 {
     public class QuestionsModel
@@ -16,5 +18,6 @@ namespace SOC.Models
         public ApplicationUser ApplicationUser { get; set; }
         public string TagName { get; set; }
         public TagsModel TagsModel { get; set; }
+        public ICollection<AnswersModel> AnswersModel { get; set; } = new HashSet<AnswersModel>();
     }
 }

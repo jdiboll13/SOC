@@ -40,6 +40,8 @@ namespace SOC.Controllers
             }
 
             var questionsModel = await _context.QuestionsModel
+                .Include(q => q.ApplicationUser)
+                .Include(i => i.AnswersModel)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (questionsModel == null)
             {

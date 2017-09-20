@@ -8,22 +8,44 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dd>
+    <section class="question">
+        <p>
             @Html.DisplayFor(model => model.Body)
-        </dd>
+        </p>
         <span>
             <strong>@Html.DisplayNameFor(model => model.VoteCount)</strong>
             @Html.DisplayFor(model => model.VoteCount)
             <strong>@Html.DisplayNameFor(model => model.DatePosted)</strong>
             @Html.DisplayFor(model => model.DatePosted)
         </span>
-    </dl>
+    </section>
+    <div>
+        <a asp-controller="Answers" asp-action="Create" asp-route-id="@Model.ID">Answer</a> |
+        <a asp-controller="Comments" asp-action="Create" asp-route-id="@Model.ID">Comment</a> |
+        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+        <a asp-action="Delete" asp-route-id="@Model.ID">Delete</a> |
+        <a asp-controller="Home" asp-action="Index">Back to List</a>
+    </div>
+    <hr />
+    <section class="answers">
+        @if(Model.AnswersModel.Count == 0)
+        {
+            <p><i>No answers given yet</i></p>
+        } 
+        else
+        {
+            <p>Viewing @Model.AnswersModel.Count answers</p>
+            @foreach(var answer in Model.AnswersModel)
+            {
+                <div>
+                    <p>@answer.Body</p> |
+                    <a asp-action="Edit" asp-route-id="@answer.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@answer.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@answer.ID">Delete</a>
+                    <hr />
+                </div>
+            }
+        }
+    </section>
 </div>
-<div>
-    <a asp-controller="Answers" asp-action="Create">Answer</a> |
-    <a asp-controller="Comments" asp-action="Create">Comment</a> |
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Delete" asp-route-id="@Model.ID">Delete</a> |
-    <a asp-controller="Home" asp-action="Index">Back to List</a>
-</div>
+

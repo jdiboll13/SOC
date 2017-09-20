@@ -52,8 +52,10 @@ namespace SOC.Controllers
 
         // GET: Comments/Create
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(string id, string id2)
         {
+            ViewData["QuestionsModelID"] = id;
+            ViewData["AnswersModelID"] = id2;
             return View();
         }
 
@@ -63,13 +65,13 @@ namespace SOC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([FromForm] string QuestionsModelID, [FromForm] string AnswersModelID, [FromForm] string body)
+        public async Task<IActionResult> Create([FromForm] string AnswersModelID, [FromForm] string QuestionsModelID, [FromForm] string body)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                var newAnswer = new AnswersModel {QuestionsModelID = QuestionsModelID, Body = body, ApplicationUserId = user.Id, ID = AnswersModelID};
-                _context.Add(newAnswer);
+                var newComment = new CommentsModel {AnswersModelID = AnswersModelID, QuestionsModelID = QuestionsModelID, Body = body, ApplicationUserId = user.Id};
+                _context.Add(newComment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
